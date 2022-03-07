@@ -1,0 +1,30 @@
+{
+    "name": "gigcodes/asset-manager",
+    "description": "Asset Manager Laravel package for Gigcodes UI Library",
+    "type": "library",
+    "autoload": {
+        "files": ["src/helpers.php"],
+        "psr-4": {
+            "Gigcodes\\AssetManager\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Karthick",
+            "email": "karthickk1996@hotmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "league/flysystem": "2.x-dev",
+        "intervention/image": "^2.7",
+        "maennchen/zipstream-php": "dev-master"
+    },
+    "extra": {
+        "laravel": {
+            "providers" : [
+                "Gigcodes\\AssetManager\\AssetManagerServiceProvider"
+            ]
+        }
+    }
+}
