@@ -3,7 +3,9 @@
     "description": "Asset Manager Laravel package for Gigcodes UI Library",
     "type": "library",
     "autoload": {
-        "files": ["src/helpers.php"],
+        "files": [
+          "src/helpers.php"
+        ],
         "psr-4": {
             "Gigcodes\\AssetManager\\": "src/"
         }

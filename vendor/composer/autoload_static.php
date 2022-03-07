@@ -7,9 +7,9 @@ namespace Composer\Autoload;
 class ComposerStaticInit7332edb7984a513edf9655f444327ae1
 {
     public static $files = array (
-        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '140566a7fcc2e956eb7b4d54ed7a3471' => __DIR__ . '/../..' . '/src/helpers.php',
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..',
+        '140566a7fcc2e956eb7b4d54ed7a3471' => __DIR__ . '/../..',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -48,45 +48,45 @@ class ComposerStaticInit7332edb7984a513edf9655f444327ae1
     public static $prefixDirsPsr4 = array (
         'ZipStream\\' => 
         array (
-            0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
+            0 => __DIR__ . '/..',
         ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+            0 => __DIR__ . '/..',
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..',
+            1 => __DIR__ . '/..',
         ),
         'MyCLabs\\Enum\\' => 
         array (
-            0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
+            0 => __DIR__ . '/..',
         ),
         'League\\MimeTypeDetection\\' => 
         array (
-            0 => __DIR__ . '/..' . '/league/mime-type-detection/src',
+            0 => __DIR__ . '/..',
         ),
         'League\\Flysystem\\' => 
         array (
-            0 => __DIR__ . '/..' . '/league/flysystem/src',
+            0 => __DIR__ . '/..',
         ),
         'Intervention\\Image\\' => 
         array (
-            0 => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image',
+            0 => __DIR__ . '/..',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
+            0 => __DIR__ . '/..',
         ),
         'Gigcodes\\AssetManager\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/src',
+            0 => __DIR__ . '/../..',
         ),
     );
 
     public static $classMap = array (
-        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..',
     );
 
     public static function getInitializer(ClassLoader $loader)

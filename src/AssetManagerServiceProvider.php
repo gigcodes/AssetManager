@@ -13,7 +13,7 @@ class AssetManagerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/asset_manager.php', 'asset_manager');
+        $this->mergeConfigFrom(__DIR__ . '/../config/asset_manager.php', 'asset_manager');
     }
 
     /**
@@ -33,6 +33,6 @@ class AssetManagerServiceProvider extends ServiceProvider
             ], 'migrations');
         }
 
-        $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
     }
 }

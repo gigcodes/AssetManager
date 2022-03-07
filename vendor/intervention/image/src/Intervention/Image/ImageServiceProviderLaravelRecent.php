@@ -24,7 +24,7 @@ class ImageServiceProviderLaravelRecent extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../../config/config.php' => config_path('image.php')
+            __DIR__ . '/../../config/config.php' => config_path('image.php')
         ]);
 
         // setup intervention/imagecache if package is installed
@@ -42,7 +42,7 @@ class ImageServiceProviderLaravelRecent extends ServiceProvider
 
         // merge default config
         $this->mergeConfigFrom(
-            __DIR__.'/../../config/config.php',
+            __DIR__ . '/../../config/config.php',
             'image'
         );
 
