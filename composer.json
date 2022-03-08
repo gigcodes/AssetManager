@@ -16,7 +16,8 @@
             "email": "karthickk1996@hotmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "require": {
         "league/flysystem": "2.x-dev",
         "intervention/image": "^2.7",
