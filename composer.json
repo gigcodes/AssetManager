@@ -21,9 +21,9 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "league/flysystem": "2.x-dev",
+        "league/flysystem": "^2.4",
         "intervention/image": "^2.7",
-        "maennchen/zipstream-php": "dev-master"
+        "maennchen/zipstream-php": "^2.1"
     },
     "extra": {
         "laravel": {
