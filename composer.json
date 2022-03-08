@@ -2,6 +2,7 @@
     "name": "gigcodes/asset-manager",
     "description": "Asset Manager Laravel package for Gigcodes UI Library",
     "type": "library",
+    "license": "MIT",
     "autoload": {
         "files": [
           "src/helpers.php"
