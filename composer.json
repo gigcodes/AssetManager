@@ -21,7 +21,7 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "league/flysystem": "^2.4",
+        "league/flysystem": "^1.1",
         "intervention/image": "^2.7",
         "maennchen/zipstream-php": "^2.1"
     },
