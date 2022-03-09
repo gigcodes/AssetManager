@@ -67,8 +67,6 @@ class MediaController extends Controller
     }
 
 
-
-
     public function index()
     {
         $data['title'] = 'Media Library';
@@ -79,23 +77,18 @@ class MediaController extends Controller
     public function browse(Request $request, $container = 'main', $any = '')
     {
         $data['url'] = $any;
-        if (request()->ajax()) {
-            return response()->json([
-                'columns' => ['title'],
-                'items' => [
-                    [
-                        'assets' => $this->db->all()->count(),
-                        'browse_url' => route('admin.media.index'),
-                        'edit_url' => route('admin.media.index'),
-                        'id' => 'main',
-                        'title' => 'Main Assets'
-                    ]
+        return response()->json([
+            'columns' => ['title'],
+            'items' => [
+                [
+                    'assets' => $this->db::all()->count(),
+                    'browse_url' => route('gigcodes.media.index'),
+                    'edit_url' => route('gigcodes.media.index'),
+                    'id' => 'main',
+                    'title' => 'Main Assets'
                 ]
-            ]);
-        } else {
-            $data['title'] = 'Media Library';
-            return view('backend.media.index', $data);
-        }
+            ]
+        ]);
     }
 
     public function getContents(Request $request)
@@ -115,13 +108,13 @@ class MediaController extends Controller
 
 
         return response()->json([
-            'assets' => MediaIndexResource::collection($this->db->where('upload_path', $request->path)->get()),
+            'assets' => MediaIndexResource::collection($this->db::where('upload_path', $request->path)->get()),
             'container' => [
                 'driver' => $this->storageDisk,
                 'id' => 'main',
                 'path' => 'app/media',
                 'title' => 'Main Assets',
-                'url' => route('admin.media.index')
+                'url' => route('gigcodes.media.index')
             ],
             'containers' => [
                 'main' => []
@@ -217,6 +210,7 @@ class MediaController extends Controller
         $random_name = true;
         $result = [];
         $one = $request->file('file');
+        $container = $request->get('container');
 
 
         if ($this->allowUpload($one)) {
@@ -249,7 +243,8 @@ class MediaController extends Controller
 
                 // save file
                 $full_path = $this->storeFile($one, $upload_path, $final_name);
-                $media = $this->db->create([
+                $media = $this->db::create([
+                    'container' => $container,
                     'name' => $final_name,
                     'full_path' => $full_path,
                     'upload_path' => $upload_path,
@@ -262,7 +257,7 @@ class MediaController extends Controller
 
                 return response()->json([
                     'success' => true,
-                    'media' => new MediaIndexResource($media),
+                    'asset' => new MediaIndexResource($media),
                 ]);
             } catch (\Exception $e) {
                 $result[] = [
@@ -279,10 +274,20 @@ class MediaController extends Controller
         return response()->json($result);
     }
 
-    public function getFile(Request $request, $container, $file)
+    public function getFile(Request $request)
     {
-        $media = new MediaIndexResource($this->db->where('name', $file)->first());
-        return response()->json(['asset' => $media]);
+        $assets = [];
+        $items = $request->get('items');
+        foreach ($items as $item) {
+            if (strpos($item, '::') !== false) {
+                $f = explode("::", $item);
+                $media = new MediaIndexResource($this->db::where('name', $f[1])->first());
+            } else {
+                $media = new MediaIndexResource($this->db::where('id', $item)->first());
+            }
+            array_push($assets, $media);
+        }
+        return response()->json(['assets' => $assets]);
     }
 
     public function downloadFile($file)
@@ -295,7 +300,7 @@ class MediaController extends Controller
         $ids = $request->get('ids');
         foreach ($ids as $id) {
             $file_name = str_replace('main::', '', $id);
-            $this->db->where('file_name', $file_name)->first()->delete();
+            $this->db::where('file_name', $file_name)->first()->delete();
         }
         return response()->json([
             'success' => true,

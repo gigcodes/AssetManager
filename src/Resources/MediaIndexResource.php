@@ -31,7 +31,7 @@ class MediaIndexResource extends JsonResource
     {
         $array = [
             'item_id' => $this->id,
-            'id' => 'main::' . $this->file_name,
+            'id' => "$this->container::$this->file_name",
             'title' => null,
             'alt_text' => null,
             'url' => $this->full_path,
@@ -46,12 +46,12 @@ class MediaIndexResource extends JsonResource
             'is_previewable' => $this->isPreviewable(),
             'is_image' => $this->isImage(),
             'is_video' => $this->isVideo(),
-            'edit_url' => route('admin.media.getFile', $this->full_path),
-            'container' => 'main',
+            'edit_url' => route('gigcodes.media.getFile', $this->full_path),
+            'container' => $this->container,
             'folder' => $this->folder(),
             'thumbnail' => $this->getManipulation('thumb')->getPublicUrl(),
             'toenail' => $this->getManipulation('toenail')->getPublicUrl(),
-            'download_url' => route('admin.media.download', [
+            'download_url' => route('gigcodes.media.download', [
                 'file' => $this->id
             ]),
         ];
@@ -80,8 +80,8 @@ class MediaIndexResource extends JsonResource
             'last_modified_instance' => $this->lastModified(),
             'last_modified_formatted' => $this->lastModified()->format('d/m/Y'),
             'last_modified_relative' => $this->lastModified()->diffForHumans(),
-            'focus' => '',
-            'focus_css' => '',
+            'focus' => '50-50',
+            'focus_css' => '50% 50%',
         ]);
 
 
