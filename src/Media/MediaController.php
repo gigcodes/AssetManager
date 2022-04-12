@@ -95,10 +95,11 @@ class MediaController extends Controller
     {
         $path = $request->path;
         $path = explode('/', $path);
+        //Media::where('upload_path')
         $files = $this->getFiles($request);
-        $page = $this->paginate($files, $this->paginationAmount);
+        $files_db = $this->db::where('upload_path', $request->path)->paginate();
         $paged = [];
-        $paginations = $page->getUrlRange(0, $page->lastPage() - 1);
+        $paginations = $files_db->getUrlRange(0, $files_db->lastPage() - 1);
         foreach ($paginations as $index => $pagination) {
             $paged[] = [
                 'page' => $index + 1,
@@ -108,7 +109,7 @@ class MediaController extends Controller
 
 
         return response()->json([
-            'assets' => MediaIndexResource::collection($this->db::where('upload_path', $request->path)->get()),
+            'assets' => MediaIndexResource::collection($files_db),
             'container' => [
                 'driver' => $this->storageDisk,
                 'id' => 'main',
@@ -126,12 +127,12 @@ class MediaController extends Controller
             ],
             'folders' => $files['items']['folders'],
             'pagination' => [
-                'totalItems' => $page->total(),
-                'itemsPerPage' => $page->perPage(),
-                'currentPage' => $page->currentPage(),
-                'totalPages' => $page->lastPage(),
-                'prevPage' => $page->previousPageUrl(),
-                'nextPage' => $page->nextPageUrl(),
+                'totalItems' => $files_db->total(),
+                'itemsPerPage' => $files_db->perPage(),
+                'currentPage' => $files_db->currentPage(),
+                'totalPages' => $files_db->lastPage(),
+                'prevPage' => $files_db->previousPageUrl(),
+                'nextPage' => $files_db->nextPageUrl(),
                 'segments' => [
                     'slider' => [],
                     'last' => [],

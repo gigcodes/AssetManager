@@ -39,7 +39,6 @@ trait GetContent
         $list = [];
         $dirList = $this->getFolderContent($dir);
         $storageFolders = $this->getFolderListByType($dirList, 'dir');
-        $storageFiles = $this->getFolderListByType($dirList, 'file');
         $folders = [];
         // folders
         foreach ($storageFolders as $folder) {
@@ -50,27 +49,8 @@ trait GetContent
             ];
         }
 
-        // files
-        $files = [];
-        foreach ($storageFiles as $file) {
-            $path = $file['path'];
-            $time = $file['timestamp'] ?? null;
-
-            $files[] = [
-                'name' => $file['basename'],
-                'type' => $file['mimetype'],
-                'size' => $file['size'],
-                'visibility' => $file['visibility'],
-                'path' => $this->resolveUrl($path),
-                'storage_path' => $path,
-                'last_modified' => $time,
-                'last_modified_formated' => $this->getItemTime($time),
-            ];
-        }
-
         return [
             'folders' => $folders,
-            'files' => $files,
         ];
     }
 
