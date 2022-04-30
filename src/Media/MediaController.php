@@ -15,6 +15,7 @@ use Gigcodes\AssetManager\Media\Modules\Upload;
 use Gigcodes\AssetManager\Media\Modules\Utils;
 use Gigcodes\AssetManager\Media\Modules\Visibility;
 use Gigcodes\AssetManager\Models\Media;
+use Gigcodes\AssetManager\Resources\MediaCollectionResource;
 use Gigcodes\AssetManager\Resources\MediaIndexResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -98,25 +99,8 @@ class MediaController extends Controller
         //Media::where('upload_path')
         $files = $this->getFiles($request);
         $files_db = $this->db::where('upload_path', $request->path)->paginate();
-        $paged = [];
-        $paginations = $files_db->getUrlRange(0, $files_db->lastPage() - 1);
-        foreach ($paginations as $index => $pagination) {
-            $paged[] = [
-                'page' => $index + 1,
-                'url' => $pagination
-            ];
-        }
 
-
-        return response()->json([
-            'assets' => MediaIndexResource::collection($files_db),
-            'container' => [
-                'driver' => $this->storageDisk,
-                'id' => 'main',
-                'path' => 'app/media',
-                'title' => 'Main Assets',
-                'url' => route('gigcodes.media.index')
-            ],
+        return new MediaCollectionResource($files_db,[
             'containers' => [
                 'main' => []
             ],
@@ -126,19 +110,6 @@ class MediaController extends Controller
                 'title' => ''
             ],
             'folders' => $files['items']['folders'],
-            'pagination' => [
-                'totalItems' => $files_db->total(),
-                'itemsPerPage' => $files_db->perPage(),
-                'currentPage' => $files_db->currentPage(),
-                'totalPages' => $files_db->lastPage(),
-                'prevPage' => $files_db->previousPageUrl(),
-                'nextPage' => $files_db->nextPageUrl(),
-                'segments' => [
-                    'slider' => [],
-                    'last' => [],
-                    'first' => $paged,
-                ]
-            ],
         ]);
     }
 
