@@ -4,6 +4,7 @@ return [
     'route' => [
         'name' => 'media',
         'prefix' => '',
+        'middleware' => null
     ],
     'max_upload_limit' => 5, //int: mention in megabytes
     'collection_class' => \Gigcodes\AssetManager\Models\MediaCollection::class,
