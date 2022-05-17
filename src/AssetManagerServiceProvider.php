@@ -30,9 +30,9 @@ class AssetManagerServiceProvider extends ServiceProvider
         if (!class_exists('CreateMediaTable')) {
             $this->publishes([
                 __DIR__ . '/../database/migrations/create_media_collections_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_media_collections_table.php'),
-                __DIR__ . '/../database/migrations/create_exif_metas_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_exif_metas_table.php'),
-                __DIR__ . '/../database/migrations/create_media_files_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_media_files_table.php'),
                 __DIR__ . '/../database/migrations/create_media_folders_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_media_folders_table.php'),
+                __DIR__ . '/../database/migrations/create_media_files_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_media_files_table.php'),
+                __DIR__ . '/../database/migrations/create_exif_metas_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_exif_metas_table.php'),
             ], 'migrations');
         }
 

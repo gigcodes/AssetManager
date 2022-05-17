@@ -14,7 +14,7 @@ return new class extends Migration {
     {
         Schema::create('media_folders', function (Blueprint $table) {
             $table->id();
-            $table->uuid()->unique()->index();
+            $table->uuid('uuid')->unique()->index();
             $table->foreignId('media_collection_id')->constrained()->onDelete('cascade');
             $table->string('collection_name');
             $table->uuid('parent_id')->nullable();
