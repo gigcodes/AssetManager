@@ -1,30 +1,40 @@
 <?php
 
-use Gigcodes\AssetManager\Media\MediaController;
+use App\Http\Controllers\MediaController;
+use App\Http\Controllers\UploadFileController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
+|
+*/
 
-$route_condtions = [];
-if (config('asset_manager.route.prefix')) {
-    $route_condtions['prefix'] = config('asset_manager.route.prefix');
-}
-if (config('asset_manager.route.middleware')) {
-    $route_condtions['middleware'] = config('asset_manager.route.middleware');
-}
+Route::group([
+    'prefix' => config('asset-manager.route.prefix'),
+    'as' => config('asset-manager.route.name') . '.'
+], function () {
+    Route::post('media/browse', [MediaController::class, 'makeCollection'])->name('container');
+    Route::delete('media/browse', [MediaController::class, 'deleteCollection'])->name('container.delete');
+    Route::get('media/browse/{collection?}/{folder?}', [MediaController::class, 'getCollection'])->name('container');
+    Route::patch('media/browse/{collection?}/{folder?}', [MediaController::class, 'editContainer'])->name('container.edit');
+    Route::get('media/get-files', [MediaController::class, 'getItems'])->name('media.getItems');
 
-Route::group($route_condtions, function () {
-    Route::get('media', [MediaController::class, 'index'])
-        ->name('gigcodes.media.index')
-        ->where('any', '.*');;
-    Route::get('media/browse/{container?}/{any?}', [MediaController::class, 'browse'])
-        ->name('gigcodes.media.browse')
-        ->where('any', '.*');
-    Route::post('media/folder', [MediaController::class, 'newFolder'])->name('gigcodes.media.newFolder');
-    Route::get('media/folders/main/{folder}', [MediaController::class, 'getFolder'])->name('gigcodes.media.getFolder');
-    Route::post('media/get-files', [MediaController::class, 'getContents'])->name('gigcodes.media.getFiles');
-    Route::delete('media/folders', [MediaController::class, 'deleteFolder'])->name('gigcodes.media.deleteFolder');
-    Route::post('media/upload', 'Gigcodes\AssetManager\Media\MediaController@uploadFile')->name('gigcodes.media.upload');
-    Route::get('media/get-file', [MediaController::class, 'getFile'])->name('gigcodes.media.getFile');
-    Route::delete('media/delete', [MediaController::class, 'deleteFile'])->name('gigcodes.media.deleteFile');
-    Route::get('media/download/main/{file}', [MediaController::class, 'downloadFile'])->name('gigcodes.media.download');
+    //FileActions
+    Route::post('media/upload', UploadFileController::class)->name('media.upload');
+    Route::patch('media/{uuid}/edit', [MediaController::class, 'editFile'])->name('media.edit');
+    Route::get('media/{uuid}/download', [MediaController::class, 'downloadFile'])->name('media.download');
+    Route::delete('media/delete', [MediaController::class, 'deleteFile'])->name('media.delete');
+    Route::get('media/get-file', [MediaController::class, 'getFile'])->name('media.item');
+
+    //Folder Actions
+    Route::post('media/folder', [MediaController::class, 'createFolder'])->name('media.folder');
+    Route::delete('media/folder/{uuid}', [MediaController::class, 'deleteFolder'])->name('media.folder');
+    Route::patch('media/folder/{uuid}/edit', [MediaController::class, 'updateFolder'])->name('media.folder.update');
 });

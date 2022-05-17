@@ -1,116 +1,39 @@
 <?php
 
 return [
-
-    'model' => Gigcodes\AssetManager\Models\Media::class, //update your custom class here
-
     'route' => [
-        'prefix' => 'api',
-        'middleware' => '',
+        'name' => 'media',
+        'prefix' => '',
     ],
-
-    /*
-     * ignore any file starts with "."
-     */
-    'ignore_files' => '/^\..*/',
-
-    /*
-     * filesystem disk
-     */
-    'storage_disk' => env('FILESYSTEM_DRIVER', 'public'),
-
-    /*
-     * remove any file special chars except
-     * dot .
-     * dash -
-     * underscore _
-     * single quote ''
-     * white space
-     * parentheses ()
-     * comma ,
-     */
-    'allowed_fileNames_chars' => '\._\-\'\s\(\),',
-
-    /*
-     * remove any folder special chars except
-     * dash -
-     * underscore _
-     * white space
-     *
-     * to add & nest folders in one go add '\/'
-     * avoid using '#' as browser interpret it as an anchor
-     */
-    'allowed_folderNames_chars' => '_\-\s',
-
-    /*
-     * disallow uploading files with the following mimetypes
-     * https://www.iana.org/assignments/media-types/media-types.xhtml
-     */
-    'unallowed_mimes' => ['php', 'java'],
-
-    /*
-     * extra mime-types
-     */
-    'extended_mimes' => [
-        // any extra mime-types that doesnt have "image" in it
-        'image' => [
-            'binary/octet-stream', // aws
+    'max_upload_limit' => 5, //int: mention in megabytes
+    'collection_class' => \Gigcodes\AssetManager\Models\MediaCollection::class,
+    'folder_class' => \Gigcodes\AssetManager\Models\MediaFolder::class,
+    'file_class' => \Gigcodes\AssetManager\Models\MediaFile::class,
+    'storage_disk' => env('FILESYSTEM_DISK', 'local'),
+    'mimes' => [
+        'blacklisted' => "" //string: mimetypes seperated by comma (,)
+    ],
+    'image_sizes' => [
+        'immediately' => [
+            [
+                'size' => 120,
+                'name' => 'xs',
+            ],
+            [
+                'size' => 240,
+                'name' => 'sm',
+            ],
         ],
 
-        // any extra mime-types that doesnt have "compressed" in it
-        'archive' => [
-            'application/x-tar',
-            'application/zip',
+        'later' => [
+            [
+                'size' => 960,
+                'name' => 'lg',
+            ],
+            [
+                'size' => 1440,
+                'name' => 'xl',
+            ],
         ],
     ],
-
-    /*
-     * when file names gets cleand up
-     *
-     * put here any global function that
-     * doesnt take arguments
-     */
-    'sanitized_text' => 'uniqid',
-
-    /*
-     * display file last modification time as
-     * http://carbon.nesbot.com/docs/#api-formatting
-     */
-    'last_modified_format' => 'toDateString',
-
-    /*
-     * hide file extension in files list
-     */
-    'hide_files_ext' => true,
-
-    /*
-     * in-order to get the folder items count & size
-     * we need to recursively get all the files inside the folders
-     * which could make the request take longer
-     */
-    'get_folder_info' => true,
-
-    /*
-     * do you want to enable broadcasting the changes
-     * made by one user to others ?
-     *
-     * "laravel-echo" must be installed
-     */
-    'enable_broadcasting' => false,
-
-    /*
-     * show "an itunes like" content ratio bar
-     */
-    'show_ratio_bar' => true,
-
-    /*
-     * preview files b4 uploading
-     */
-    'preview_files_before_upload' => true,
-
-    /*
-     * loaded chunk amount "pagination"
-     */
-    'pagination_amount' => 50,
-
 ];
