@@ -13,7 +13,7 @@ class AssetManagerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/asset-manager.php', 'asset_manager');
+        $this->mergeConfigFrom(__DIR__ . '/../config/asset-manager.php', 'asset-manager');
     }
 
     /**

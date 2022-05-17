@@ -40,7 +40,7 @@ Route::group($options, function () {
     Route::get('media/get-file', [MediaController::class, 'getFile'])->name('media.item');
 
     //Folder Actions
-    Route::post('media/folder', [MediaController::class, 'createFolder'])->name('media.folder');
-    Route::delete('media/folder/{uuid}', [MediaController::class, 'deleteFolder'])->name('media.folder');
+    Route::post('media/folder', [MediaController::class, 'createFolder'])->name('media.folder.create');
+    Route::delete('media/folder/{uuid}', [MediaController::class, 'deleteFolder'])->name('media.folder.delete');
     Route::patch('media/folder/{uuid}/edit', [MediaController::class, 'updateFolder'])->name('media.folder.update');
 });
