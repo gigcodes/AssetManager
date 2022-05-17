@@ -8,10 +8,14 @@ use Gigcodes\AssetManager\Http\Controllers\Traits\Folder;
 use Gigcodes\AssetManager\Http\Resources\MediaItemsResource;
 use Gigcodes\AssetManager\Models\MediaFolder;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
 
-class MediaController extends Controller
+class MediaController extends BaseController
 {
-    use Collection, Folder, File;
+    use Collection, Folder, File, AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected $collection;
     protected $files;
