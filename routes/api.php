@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\MediaController;
-use App\Http\Controllers\UploadFileController;
+use Gigcodes\AssetManager\Http\Controllers\MediaController;
+use Gigcodes\AssetManager\Http\Controllers\UploadFileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
