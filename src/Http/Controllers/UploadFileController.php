@@ -5,7 +5,7 @@ namespace Gigcodes\AssetManager\Http\Controllers;
 use Gigcodes\AssetManager\Exceptions\InvalidUserActionException;
 use Gigcodes\AssetManager\Http\Controllers\Actions\FileUploadAction;
 use Gigcodes\AssetManager\Http\Requests\UploadFileRequest;
-use Gigcodes\AssetManager\Http\Resources\FileResource;
+use Gigcodes\AssetManager\Resources\MediaIndexResource;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -31,7 +31,7 @@ class UploadFileController extends BaseController
             // Upload and store file record
             $file = ($this->fileUploadAction)($uploadFileRequest);
             return response([
-                'item' => new FileResource($file),
+                'item' => new MediaIndexResource($file),
                 'success' => true,
                 'message' => 'File Uploaded successfully'
             ], 201);
