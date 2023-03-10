@@ -13,7 +13,7 @@ class AssetManagerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/asset_manager.php', 'asset_manager');
+        $this->mergeConfigFrom(__DIR__ . '/../config/asset-manager.php', 'asset-manager');
     }
 
     /**
@@ -24,14 +24,24 @@ class AssetManagerServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../config/asset_manager.php' => config_path('asset_manager.php'),
+            __DIR__ . '/../config/asset-manager.php' => config_path('asset-manager.php'),
         ], 'config');
 
-        if (!class_exists('CreateMediaTable')) {
-            $this->publishes([
-                __DIR__ . '/../database/migrations/create_media_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_media_table.php'),
-            ], 'migrations');
-        }
+        $this->publishes([
+            __DIR__ . '/../database/migrations/create_media_collections_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time() + 30) . '_create_media_collections_table.php'),
+        ], 'migrations');
+
+        $this->publishes([
+            __DIR__ . '/../database/migrations/create_media_folders_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time() + 60) . '_create_media_folders_table.php'),
+        ], 'migrations');
+
+        $this->publishes([
+            __DIR__ . '/../database/migrations/create_media_files_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time() + 90) . '_create_media_files_table.php'),
+        ], 'migrations');
+
+        $this->publishes([
+            __DIR__ . '/../database/migrations/create_exif_metas_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time() + 120) . '_create_exif_metas_table.php'),
+        ], 'migrations');
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
     }
